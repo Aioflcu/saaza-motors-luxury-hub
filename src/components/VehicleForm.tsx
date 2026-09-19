@@ -39,7 +39,7 @@ export function VehicleForm({
   vehicle,
   onDone,
 }: {
-  vehicle?: Vehicle;
+  vehicle?: Vehicle | undefined;
   onDone: () => void;
 }) {
   const { addVehicle, updateVehicle } = useStore();
