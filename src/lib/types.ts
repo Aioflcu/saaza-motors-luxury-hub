@@ -36,4 +36,24 @@ export type SourcingRequest = {
   bodyType: string;
   notes: string;
   status: "New" | "In progress" | "Closed";
+  clientId?: string;
+};
+
+export type Client = {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+  phone: string;
+  favourites: string[];
+  createdAt: string;
+};
+
+export type ClientNotification = {
+  id: string;
+  clientId: string;
+  title: string;
+  body: string;
+  createdAt: string;
+  read: boolean;
 };
