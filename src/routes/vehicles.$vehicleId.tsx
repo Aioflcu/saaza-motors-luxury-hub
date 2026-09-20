@@ -3,6 +3,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { VehicleGallery } from "@/components/VehicleGallery";
 import { FinanceCalculator } from "@/components/FinanceCalculator";
+import { FavouriteButton } from "@/components/FavouriteButton";
 import { SALES_EMAIL, SALES_WHATSAPP } from "@/lib/contact";
 import { formatMiles, formatPrice, useStore } from "@/lib/store";
 
@@ -104,6 +105,7 @@ function VehicleDetail() {
               >
                 Email sales
               </a>
+              <FavouriteButton vehicleId={vehicle.id} withLabel className="px-4 py-2.5 text-sm" />
             </div>
 
             <FinanceCalculator price={vehicle.price} />

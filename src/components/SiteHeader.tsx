@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useStore } from "@/lib/store";
 
 export function SiteHeader() {
-  const { isAdmin } = useStore();
+  const { isAdmin, client, unreadCount } = useStore();
 
   return (
     <header className="sticky top-0 z-30 border-b border-line bg-ink/90 backdrop-blur">
@@ -30,6 +30,18 @@ export function SiteHeader() {
             activeProps={{ className: "text-gold" }}
           >
             Custom Import
+          </Link>
+          <Link
+            to="/account"
+            className="relative flex items-center gap-1.5 text-xs tracking-wide text-dim"
+            activeProps={{ className: "text-gold" }}
+          >
+            {client ? client.name.split(" ")[0] : "Sign in"}
+            {unreadCount > 0 ? (
+              <span className="grid size-4 place-items-center rounded-full bg-gold text-[10px] font-semibold text-ink">
+                {unreadCount}
+              </span>
+            ) : null}
           </Link>
           <Link
             to="/admin"

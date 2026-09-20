@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { FavouriteButton } from "@/components/FavouriteButton";
 import { formatMiles, formatPrice } from "@/lib/store";
 import type { Vehicle } from "@/lib/types";
 
@@ -7,7 +8,7 @@ export function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
     <Link
       to="/vehicles/$vehicleId"
       params={{ vehicleId: vehicle.id }}
-      className="block overflow-hidden rounded-[14px] bg-panel ring-1 ring-line/40"
+      className="relative block overflow-hidden rounded-[14px] bg-panel ring-1 ring-line/40"
     >
       <img
         src={vehicle.images[0]?.url}
@@ -15,6 +16,7 @@ export function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
         loading="lazy"
         className="aspect-[16/9] w-full object-cover transition-transform duration-500 hover:scale-[1.03]"
       />
+      <FavouriteButton vehicleId={vehicle.id} className="absolute top-3 right-3" />
       <div className="p-3">
         <div className="flex items-baseline justify-between gap-2">
           <h3 className="font-serif text-lg font-semibold">

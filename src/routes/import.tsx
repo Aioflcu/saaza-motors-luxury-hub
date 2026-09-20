@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -36,10 +36,20 @@ const EMPTY = {
 };
 
 function ImportPortal() {
-  const { addRequest } = useStore();
+  const { addRequest, client } = useStore();
   const [form, setForm] = useState(EMPTY);
   const [error, setError] = useState("");
   const [sent, setSent] = useState(false);
+
+  useEffect(() => {
+    if (!client) return;
+    setForm((prev) => ({
+      ...prev,
+      name: prev.name || client.name,
+      email: prev.email || client.email,
+      phone: prev.phone || client.phone,
+    }));
+  }, [client]);
 
   const set = (key: keyof typeof EMPTY) => (value: string) =>
     setForm((prev) => ({ ...prev, [key]: value }));
