@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AccountRouteImport } from './routes/account'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as ImportRouteImport } from './routes/import'
 import { Route as InventoryRouteImport } from './routes/inventory'
@@ -18,6 +19,11 @@ import { Route as VehiclesVehicleIdRouteImport } from './routes/vehicles.$vehicl
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountRoute = AccountRouteImport.update({
+  id: '/account',
+  path: '/account',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminRoute = AdminRouteImport.update({
@@ -43,6 +49,7 @@ const VehiclesVehicleIdRoute = VehiclesVehicleIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/account': typeof AccountRoute
   '/admin': typeof AdminRoute
   '/import': typeof ImportRoute
   '/inventory': typeof InventoryRoute
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/account': typeof AccountRoute
   '/admin': typeof AdminRoute
   '/import': typeof ImportRoute
   '/inventory': typeof InventoryRoute
@@ -58,6 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/account': typeof AccountRoute
   '/admin': typeof AdminRoute
   '/import': typeof ImportRoute
   '/inventory': typeof InventoryRoute
@@ -65,12 +74,25 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/import' | '/inventory' | '/vehicles/$vehicleId'
+  fullPaths:
+    | '/'
+    | '/account'
+    | '/admin'
+    | '/import'
+    | '/inventory'
+    | '/vehicles/$vehicleId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/import' | '/inventory' | '/vehicles/$vehicleId'
+  to:
+    | '/'
+    | '/account'
+    | '/admin'
+    | '/import'
+    | '/inventory'
+    | '/vehicles/$vehicleId'
   id:
     | '__root__'
     | '/'
+    | '/account'
     | '/admin'
     | '/import'
     | '/inventory'
@@ -79,6 +101,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AccountRoute: typeof AccountRoute
   AdminRoute: typeof AdminRoute
   ImportRoute: typeof ImportRoute
   InventoryRoute: typeof InventoryRoute
@@ -92,6 +115,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account': {
+      id: '/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AccountRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin': {
@@ -127,6 +157,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AccountRoute: AccountRoute,
   AdminRoute: AdminRoute,
   ImportRoute: ImportRoute,
   InventoryRoute: InventoryRoute,
